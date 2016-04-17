@@ -75,8 +75,17 @@ namespace YABS.DesktopClient.ViewModels.Implementation {
 
 
         async Task EditOrderAsync(Order order) {
-            var editedOrder = await PerformOrderEditing(order);
-            await _manager.Edit(editedOrder);
+            _canEditSelectedOrder = false;
+            EditOrderCommand.RaiseCanExecuteChanged();
+
+            try {
+                var editedOrder = await PerformOrderEditing(order);
+                await _manager.Edit(editedOrder);
+            }
+            finally {
+                _canEditSelectedOrder = await _manager.CanEdit(order);
+                EditOrderCommand.RaiseCanExecuteChanged();
+            }
         }
 
 
@@ -92,6 +101,9 @@ namespace YABS.DesktopClient.ViewModels.Implementation {
 
 
         async Task CancelOrderAsync(Order order) {
+            _canEditSelectedOrder = false;
+            CancelOrderCommand.RaiseCanExecuteChanged();
+
             if (await _manager.Cancel(order))
                 Orders.Remove(order);
         }

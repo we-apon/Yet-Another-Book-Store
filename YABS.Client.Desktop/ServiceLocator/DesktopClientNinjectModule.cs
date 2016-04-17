@@ -35,7 +35,7 @@ namespace YABS.DesktopClient.ServiceLocator
                 var editDialog = x.Kernel.Get<ClientEditDialog>(new ConstructorArgument("client", client));
                 editDialog.Confirmed += completion.SetResult;
                 editDialog.Canceled += completion.SetCanceled; //todo: add cancelation logic
-                editDialog.Show();
+                editDialog.ShowDialog();
 
                 return completion.Task;
             });
@@ -47,7 +47,7 @@ namespace YABS.DesktopClient.ServiceLocator
                 var editDialog = x.Kernel.Get<OrderEditDialog>(new ConstructorArgument("order", order));
                 editDialog.Confirmed += completion.SetResult;
                 editDialog.Canceled += completion.SetCanceled; //todo: add cancelation logic
-                editDialog.Show();
+                editDialog.ShowDialog();
 
                 return completion.Task;
 

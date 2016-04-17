@@ -36,11 +36,11 @@
         </Grid.RowDefinitions>
         
         <ToolBar Grid.Row="0">
-            <Button Content="Register new client" FontSize="25" Command="{Binding AddClientCommand}"/>
+            <Button Content="Register new client" FontSize="16" Command="{Binding AddClientCommand}"/>
             <Separator/>
-            <Button Content="Edit selected client" FontSize="25" Command="{Binding EditClientCommand}" CommandParameter="{Binding SelectedClient}"/>
+            <Button Content="Edit selected client" FontSize="16" Command="{Binding EditClientCommand}" CommandParameter="{Binding SelectedClient}"/>
             <Separator/>
-            <Button Content="Remove selected client" FontSize="25" Command="{Binding DeleteClientCommand}" CommandParameter="{Binding SelectedClient}"/>
+            <Button Content="Remove selected client" FontSize="16" Command="{Binding DeleteClientCommand}" CommandParameter="{Binding SelectedClient}"/>
         </ToolBar>
         
         

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:YABS.DesktopClient.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="900">
+        Title="MainWindow" Height="720" Width="1300">
 
     <views:ClientOrdersView />
     

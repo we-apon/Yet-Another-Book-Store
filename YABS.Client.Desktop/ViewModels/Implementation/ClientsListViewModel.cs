@@ -74,8 +74,17 @@ namespace YABS.DesktopClient.ViewModels.Implementation {
 
 
         async Task EditClient(Client client) {
-            var editedOrder = await PerformClientEditing(client);
-            await _manager.Edit(editedOrder);
+            _canEditSelectedClient = false;
+            EditClientCommand.RaiseCanExecuteChanged();
+
+            try {
+                var editedOrder = await PerformClientEditing(client);
+                await _manager.Edit(editedOrder);
+            }
+            finally {
+                _canEditSelectedClient = await _manager.CanEdit(client);
+                EditClientCommand.RaiseCanExecuteChanged();
+            }
         }
 
 
@@ -91,6 +100,9 @@ namespace YABS.DesktopClient.ViewModels.Implementation {
 
 
         async Task DeleteClient(Client client) {
+            _canDeleteSelectedClient = false;
+            DeleteClientCommand.RaiseCanExecuteChanged();
+
             if (await _manager.Delete(client))
                 Clients.Remove(client);
         }

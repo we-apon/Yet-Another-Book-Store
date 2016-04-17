@@ -28,11 +28,11 @@
         </Grid.RowDefinitions>
 
         <ToolBar Grid.Row="0"> <!-- todo: may better to use one global toolbar -->
-            <Button Content="Accept new order" FontSize="25" Command="{Binding AcceptOrderCommand}"/>
+            <Button Content="Accept new order" FontSize="16" Command="{Binding AcceptOrderCommand}"/>
             <Separator/>
-            <Button Content="Edit selected order" FontSize="25" Command="{Binding EditOrderCommand}" CommandParameter="{Binding SelectedOrder}"/>
+            <Button Content="Edit selected order" FontSize="16" Command="{Binding EditOrderCommand}" CommandParameter="{Binding SelectedOrder}"/>
             <Separator/>
-            <Button Content="Cancel selected order" FontSize="25" Command="{Binding CancelOrderCommand}" CommandParameter="{Binding SelectedOrder}"/>
+            <Button Content="Cancel selected order" FontSize="16" Command="{Binding CancelOrderCommand}" CommandParameter="{Binding SelectedOrder}"/>
         </ToolBar>
 
         <ListView Grid.Row="1" ItemsSource="{Binding Orders}" SelectionMode="Single" SelectedItem="{Binding SelectedOrder, Mode=OneWayToSource}" ItemTemplate="{StaticResource OrderTemplace}">
