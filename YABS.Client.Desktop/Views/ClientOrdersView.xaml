@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="YABS.DesktopClient.Views.ClientOrdersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:YABS.DesktopClient.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:command1="http://www.galasoft.ch/mvvmlight"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="700">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ClientsListTemplate" >
+                <local:ClientsListView/>
+            </DataTemplate>
+            <DataTemplate x:Key="OrdersListTemplate" >
+                <local:OrdersListView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding Source={StaticResource ServiceLocator}, Path=ClientsListViewModel}" EventName="ClientSelected">
+            <command1:EventToCommand  Command="{Binding Source={StaticResource ServiceLocator}, Path=OrdersListViewModel.ChangeClientCommand}" PassEventArgsToCommand="True" />
+<!--
+            <i:InvokeCommandAction 
+                Command="{Binding Source={StaticResource ServiceLocator}, Path=OrdersListViewModel.ChangeActiveClientCommand}" 
+                CommandParameter="{Binding Source={StaticResource ServiceLocator}, Path=ClientOrdersViewModel.SelectedClient}"/>
+-->
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Grid.Column="0" Content="{Binding Source={StaticResource ServiceLocator}, Path=ClientsListViewModel}" ContentTemplate="{StaticResource ClientsListTemplate}"/>
+        <ContentControl Grid.Column="1" Content="{Binding Source={StaticResource ServiceLocator}, Path=OrdersListViewModel}" ContentTemplate="{StaticResource OrdersListTemplate}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="YABS.DesktopClient.Views.OrdersListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:YABS.DesktopClient.ViewModels"
+             xmlns:model="clr-namespace:YABS.Model;assembly=YABS.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance d:Type=viewModels:IOrdersListViewModel}">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="OrderTemplace" >
+                <StackPanel Orientation="Horizontal" d:DataContext="{d:DesignInstance d:Type=model:Order}">
+                    <TextBlock Text="{Binding Number, StringFormat=#{0}:}" Margin="0, 0, 10, 0" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Description}" FontStyle="Italic" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ToolBar Grid.Row="0"> <!-- todo: may better to use one global toolbar -->
+            <Button Content="Accept new order" FontSize="25" Command="{Binding AcceptOrderCommand}"/>
+            <Separator/>
+            <Button Content="Edit selected order" FontSize="25" Command="{Binding EditOrderCommand}" CommandParameter="{Binding SelectedOrder}"/>
+            <Separator/>
+            <Button Content="Cancel selected order" FontSize="25" Command="{Binding CancelOrderCommand}" CommandParameter="{Binding SelectedOrder}"/>
+        </ToolBar>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Orders}" SelectionMode="Single" SelectedItem="{Binding SelectedOrder, Mode=OneWayToSource}" ItemTemplate="{StaticResource OrderTemplace}">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Accept new order" Command="{Binding AcceptOrderCommand}"/>
+                    <MenuItem Header="Edit selected order" Command="{Binding EditOrderCommand}" CommandParameter="{Binding SelectedOrder}"/>
+                    <MenuItem Header="Cancel selected order" Command="{Binding CancelOrderCommand}" CommandParameter="{Binding SelectedOrder}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+        
+    </Grid>
+    
+</UserControl>
